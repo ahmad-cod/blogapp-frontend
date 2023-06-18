@@ -6,6 +6,7 @@ import Header from './components/Header'
 import LoggedInUser from './components/LoggedInUser'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
+import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -44,7 +45,9 @@ const App = () => {
         <Header text='Blogs' />
         <Notification notification={notification} />
         <LoggedInUser user={user.name} setUser={setUser} />
-        <BlogForm setBlogs={setBlogs} setNotification={setNotification} />
+        <Togglable buttonLabel='Add Blog'>
+          <BlogForm setBlogs={setBlogs} setNotification={setNotification} />
+        </Togglable>
         <Blogs blogs={blogs} /> 
       </div>
       : <LoginForm setUser={setUser} notification={notification} setNotification={setNotification} />}
