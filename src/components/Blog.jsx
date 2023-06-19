@@ -20,7 +20,7 @@ const Blog = ({ blog, setBlogs }) => {
     borderWidth: 1,
     marginBottom: 5
   }
-  console.log(blog)
+  
   return (
     <div style={blogStyle}>
       {blog.title} {blog.author}
