@@ -26,7 +26,7 @@ const App = () => {
         if (user.token) {
           setUser(user)
           blogService.setToken(user.token)
-          console.log(user)
+          // console.log(user)
         } else {
           console.log('User object does not have a token property')
         }
@@ -45,10 +45,10 @@ const App = () => {
         <Header text='Blogs' />
         <Notification notification={notification} />
         <LoggedInUser user={user.name} setUser={setUser} />
-        <Togglable buttonLabel='Add Blog'>
+        <Togglable buttonLabel='Add new Blog'>
           <BlogForm setBlogs={setBlogs} setNotification={setNotification} />
         </Togglable>
-        <Blogs blogs={blogs} /> 
+        <Blogs blogs={blogs} setBlogs={setBlogs} /> 
       </div>
       : <LoginForm setUser={setUser} notification={notification} setNotification={setNotification} />}
     </div>

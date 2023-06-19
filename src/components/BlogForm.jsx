@@ -15,6 +15,7 @@ const BlogForm = ({ setBlogs, setNotification }) => {
         try {
             const blog = await blogService.create(newBlog)
 
+            console.log(blog)
             setBlogs(prevState => [...prevState, blog])
             setNotification({ type: 'success', message:  `A new blog ${blog.title} by ${blog.author} added` })
             setTimeout(() => setNotification({ type: '', message: '' }), 5000)
