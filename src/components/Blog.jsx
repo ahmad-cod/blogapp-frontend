@@ -13,6 +13,18 @@ const Blog = ({ blog, setBlogs }) => {
       console.log(error)
     }
   }
+  const handleDelete = async () => {
+    if(window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
+      console.log('delete', blog.id)
+
+      try {
+        await blogService.remove(blog.id)
+        setBlogs(prev => prev.filter(blogg => blogg.id !== blog.id))
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -20,7 +32,7 @@ const Blog = ({ blog, setBlogs }) => {
     borderWidth: 1,
     marginBottom: 5
   }
-  
+
   return (
     <div style={blogStyle}>
       {blog.title} {blog.author}
@@ -31,6 +43,7 @@ const Blog = ({ blog, setBlogs }) => {
           <button onClick={handleLike}>like</button>
         </p>
         <p>{blog.user.name}</p>
+        <button onClick={handleDelete}>Delete</button>
       </Togglable>
     </div>  
   )}
