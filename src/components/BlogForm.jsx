@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState } from "react"
 import blogService from "../services/blogs"
 import Header from "./Header"
@@ -45,6 +46,11 @@ const BlogForm = ({ setBlogs, setNotification }) => {
             <button type="submit">Add Blog</button>
         </form>
     )
+}
+
+BlogForm.proptypes = {
+    setBlogs: PropTypes.func.isRequired,
+    setNotification: PropTypes.func.isRequired
 }
 
 export default BlogForm
