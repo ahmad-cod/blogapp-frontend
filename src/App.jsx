@@ -11,15 +11,10 @@ import Togglable from './components/Togglable'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [ user, setUser ] = useState(null)
-  const [notification, setNotification] = useState({
-    type: '',
-    message: ''
-  })
-
 
   useEffect(() => {
     const loggedInUser = window.localStorage.getItem('user')
-  
+
     if (loggedInUser) {
       try {
         const user = JSON.parse(loggedInUser)
@@ -34,23 +29,27 @@ const App = () => {
         console.log('Invalid JSON string for user:', loggedInUser)
       }
     }
-  
-    blogService.getAll().then(blogs => setBlogs(blogs))
+
+    try {
+      blogService.getAll().then(blogs => setBlogs(blogs))
+    } catch (error) {
+      console.error(error)
+    }
   }, [])
 
   return (
     <div>
-      { user ? 
-      <div>
-        <Header text='Blogs' />
-        <Notification notification={notification} />
-        <LoggedInUser user={user.name} setUser={setUser} />
-        <Togglable buttonLabel='Add new Blog'>
-          <BlogForm setBlogs={setBlogs} setNotification={setNotification} />
-        </Togglable>
-        <Blogs blogs={blogs} setBlogs={setBlogs} /> 
-      </div>
-      : <LoginForm setUser={setUser} notification={notification} setNotification={setNotification} />}
+      { user ?
+        <div>
+          <Header text='Blogs' />
+          <Notification />
+          <LoggedInUser user={user.name} setUser={setUser} />
+          <Togglable buttonLabel='Add new Blog'>
+            <BlogForm setBlogs={setBlogs} />
+          </Togglable>
+          <Blogs blogs={blogs} setBlogs={setBlogs} />
+        </div>
+        : <LoginForm setUser={setUser} />}
     </div>
   )
 }
