@@ -7,9 +7,12 @@ import LoggedInUser from './components/LoggedInUser'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
+import { useDispatch } from 'react-redux'
+import { setBlogs } from './reducers/blogReducer'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
+  const dispatch = useDispatch()
+  // const [blogs, setBlogs] = useState([])
   const [ user, setUser ] = useState(null)
 
   useEffect(() => {
@@ -31,11 +34,11 @@ const App = () => {
     }
 
     try {
-      blogService.getAll().then(blogs => setBlogs(blogs))
+      blogService.getAll().then(blogs => dispatch(setBlogs(blogs)))
     } catch (error) {
       console.error(error)
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <div>
@@ -45,9 +48,9 @@ const App = () => {
           <Notification />
           <LoggedInUser user={user.name} setUser={setUser} />
           <Togglable buttonLabel='Add new Blog'>
-            <BlogForm setBlogs={setBlogs} />
+            <BlogForm />
           </Togglable>
-          <Blogs blogs={blogs} setBlogs={setBlogs} />
+          <Blogs />
         </div>
         : <LoginForm setUser={setUser} />}
     </div>
