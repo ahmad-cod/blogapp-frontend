@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import blogService from './services/blogs'
+import userService from './services/users'
 import LoginForm from './components/auth/LoginForm'
 import Blogs from './components/Blogs'
 import Header from './components/Header'
@@ -10,6 +11,8 @@ import Togglable from './components/Togglable'
 import { useDispatch, useSelector } from 'react-redux'
 import { setBlogs } from './reducers/blogReducer'
 import { setUser } from './reducers/userReducer'
+import { setUsers } from './reducers/usersReducer'
+import Users from './components/Users'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -37,6 +40,7 @@ const App = () => {
 
     try {
       blogService.getAll().then(blogs => dispatch(setBlogs(blogs)))
+      userService.getAll().then(users => dispatch(setUsers(users)))
     } catch (error) {
       console.error(error)
     }
@@ -52,6 +56,7 @@ const App = () => {
           <Togglable buttonLabel='Add new Blog'>
             <BlogForm />
           </Togglable>
+          <Users />
           <Blogs />
         </div>
         : <LoginForm />}
