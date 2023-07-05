@@ -6,8 +6,9 @@ import SignupForm from "./SignupForm"
 import Notification from "../Notification"
 import { useDispatch } from "react-redux"
 import { setNotification } from "../../reducers/notificationReducer"
+import { setUser } from "../../reducers/userReducer"
 
-const LoginForm = ({ setUser }) => {
+const LoginForm = () => {
   const dispatch = useDispatch()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -25,7 +26,7 @@ const LoginForm = ({ setUser }) => {
         })
         )
       } else {
-        setUser(user)
+        dispatch(setUser(user))
         blogService.setToken(user.token)
         window.localStorage.setItem("user", JSON.stringify(user))
       }

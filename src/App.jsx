@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import blogService from './services/blogs'
 import LoginForm from './components/auth/LoginForm'
 import Blogs from './components/Blogs'
@@ -7,13 +7,15 @@ import LoggedInUser from './components/LoggedInUser'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setBlogs } from './reducers/blogReducer'
+import { setUser } from './reducers/userReducer'
 
 const App = () => {
   const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
   // const [blogs, setBlogs] = useState([])
-  const [ user, setUser ] = useState(null)
+  // const [ user, setUser ] = useState(null)
 
   useEffect(() => {
     const loggedInUser = window.localStorage.getItem('user')
@@ -22,7 +24,7 @@ const App = () => {
       try {
         const user = JSON.parse(loggedInUser)
         if (user.token) {
-          setUser(user)
+          dispatch(setUser(user))
           blogService.setToken(user.token)
           // console.log(user)
         } else {
@@ -46,13 +48,13 @@ const App = () => {
         <div>
           <Header text='Blogs' />
           <Notification />
-          <LoggedInUser user={user.name} setUser={setUser} />
+          <LoggedInUser />
           <Togglable buttonLabel='Add new Blog'>
             <BlogForm />
           </Togglable>
           <Blogs />
         </div>
-        : <LoginForm setUser={setUser} />}
+        : <LoginForm />}
     </div>
   )
 }
