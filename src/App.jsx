@@ -3,20 +3,26 @@ import blogService from './services/blogs'
 import userService from './services/users'
 import LoginForm from './components/auth/LoginForm'
 import Blogs from './components/Blogs'
-import Header from './components/Header'
-import LoggedInUser from './components/LoggedInUser'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
-import Togglable from './components/Togglable'
 import { useDispatch, useSelector } from 'react-redux'
 import { setBlogs } from './reducers/blogReducer'
 import { setUser } from './reducers/userReducer'
 import { setUsers } from './reducers/usersReducer'
 import Users from './components/Users'
+import Navbar from './components/layout/Navbar'
+import { Routes, Route, useMatch } from 'react-router-dom'
+import SignupForm from './components/auth/SignupForm'
+import BlogDetails from './components/blogs/BlogDetails'
+import UserDetails from './components/users/UserDetails'
 
 const App = () => {
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
+  const blogs = useSelector(state => state.blogs)
+  const users = useSelector(state => state.users)
+  const blogMatch = useMatch('/blogs/:id')
+  const userMatch = useMatch('/users/:id')
+  // const user = useSelector(state => state.user)
   // const [blogs, setBlogs] = useState([])
   // const [ user, setUser ] = useState(null)
 
@@ -46,20 +52,28 @@ const App = () => {
     }
   }, [dispatch])
 
+  const blog = blogMatch ? blogs.find(blog => blog.id === blogMatch.params.id) : null
+  const user = userMatch ? users.find(user => user.id === userMatch.params.id) : null
+
   return (
     <div>
-      { user ?
-        <div>
-          <Header text='Blogs' />
-          <Notification />
-          <LoggedInUser />
-          <Togglable buttonLabel='Add new Blog'>
-            <BlogForm />
-          </Togglable>
-          <Users />
-          <Blogs />
-        </div>
-        : <LoginForm />}
+      <div>
+        <Navbar />
+        <Notification />
+        <Routes>
+          <Route path='/blogs/:id' element={<BlogDetails blog={blog} />} />
+          <Route path='/blogs' element={<Blogs />} />
+          <Route path='/users/:id' element={<UserDetails user={user} />} />
+          <Route path='/users' element={<Users />} />
+          <Route path='/create' element={<BlogForm />} />
+          <Route path='/login' element={<LoginForm />} />
+          <Route path='/signup' element={<SignupForm />} />
+          <Route exact path='/' element={<Blogs />} />
+        </Routes>
+        {/* <Togglable buttonLabel='Add new Blog'>
+          <BlogForm />
+        </Togglable> */}
+      </div>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux"
 import Blog from "./Blog"
+import { Link } from "react-router-dom"
 
 const Blogs = () => {
   const blogs = useSelector(state => state.blogs)
@@ -7,7 +8,9 @@ const Blogs = () => {
   if (blogs.length === 0) return <p>No blog is added yet.</p>
   else
     return sortedBlogs.map((blog) => (
-      <Blog key={blog.id} blog={blog} />
+      <Link to={`/blogs/${blog.id}`} key={blog.id}>
+        <Blog blog={blog} />
+      </Link>
     ))
 }
 

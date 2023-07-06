@@ -7,9 +7,11 @@ import Notification from "../Notification"
 import { useDispatch } from "react-redux"
 import { setNotification } from "../../reducers/notificationReducer"
 import { setUser } from "../../reducers/userReducer"
+import { useNavigate } from "react-router-dom"
 
 const LoginForm = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
@@ -29,6 +31,7 @@ const LoginForm = () => {
         dispatch(setUser(user))
         blogService.setToken(user.token)
         window.localStorage.setItem("user", JSON.stringify(user))
+        navigate('/')
       }
     } catch (error) {
       console.error(error)
@@ -38,9 +41,8 @@ const LoginForm = () => {
   return (
     <>
       <Notification />
-      <SignupForm setUser={setUser} />
       <form onSubmit={handleLogin}>
-        <Header text="Login to the Application" />
+        <Header text="Login" />
         <div className="">
           Username
           <input

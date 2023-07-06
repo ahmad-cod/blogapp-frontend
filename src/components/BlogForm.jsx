@@ -5,9 +5,11 @@ import blogService from "../services/blogs"
 import Header from "./Header"
 import { setNotification } from "../reducers/notificationReducer"
 import { appendBlog } from "../reducers/blogReducer"
+import { useNavigate } from "react-router-dom"
 
 const BlogForm = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [title, setTitle] = useState("")
   const [author, setAuthor] = useState("")
   const [url, setUrl] = useState("")
@@ -30,6 +32,7 @@ const BlogForm = () => {
       setTitle("")
       setAuthor("")
       setUrl("")
+      navigate('/')
     } catch (error) {
       console.error(error)
     }
