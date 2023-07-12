@@ -1,4 +1,4 @@
 
-const Header = ({ text }) => <h2>{ text }</h2>
+const Header = ({ text }) => <h5 class="text-xl font-medium text-gray-900 dark:text-white mb-6">{text}</h5>
 
 export default Header

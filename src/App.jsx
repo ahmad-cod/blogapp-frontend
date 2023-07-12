@@ -15,6 +15,7 @@ import { Routes, Route, useMatch } from 'react-router-dom'
 import SignupForm from './components/auth/SignupForm'
 import BlogDetails from './components/blogs/BlogDetails'
 import UserDetails from './components/users/UserDetails'
+import Footer from './components/Footer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -56,7 +57,7 @@ const App = () => {
   const user = userMatch ? users.find(user => user.id === userMatch.params.id) : null
 
   return (
-    <div>
+    <main className='lg:max-w-[1400px] sm:px-6 lg:px-8 dark:bg-gray-800 min-h-screen'>
       <div>
         <Navbar />
         <Notification />
@@ -70,11 +71,9 @@ const App = () => {
           <Route path='/signup' element={<SignupForm />} />
           <Route exact path='/' element={<Blogs />} />
         </Routes>
-        {/* <Togglable buttonLabel='Add new Blog'>
-          <BlogForm />
-        </Togglable> */}
+        <Footer />
       </div>
-    </div>
+    </main>
   )
 }
 

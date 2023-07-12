@@ -1,14 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-* {
-    box-sizing: border-box;
+@layer components {
+    .app {
+        @apply dark:bg-veryDarkBlue bg-white
+      }
+    .label {
+        @apply peer-focus:font-medium absolute text-lg text-gray-500 dark:text-gray-300 duration-300 transform 
+        -translate-y-4 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 
+        peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6
+    }
+    .signup-input {
+        @apply block py-4 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 
+        appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none 
+        focus:ring-0 focus:border-blue-600
+    }
+    .nav-link {
+        @apply text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
+    }
+    .btn-gradient {
+        @apply relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-300 rounded-lg bg-gradient-to-br from-teal-300 to-gray-600 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800
+    }
 }
 
-#root {
-    padding: .5rem;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
+
+:root {
+    font-family: 'Josefin Sans', sans-serif;
+    color-scheme: light dark;
+}
+
+.light {
+    background: #fefefe;
+    color: hsl(235, 19%, 35%);
+}
+
 .notification {
     padding: .25rem 1rem;
     background-color: #fafafa;
@@ -25,7 +58,6 @@
     color: red;
     border: 2px solid red;
 }
-
 
 input {
     height: 1.6rem;

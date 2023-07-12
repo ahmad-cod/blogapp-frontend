@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import { useDispatch } from "react-redux"
 import blogService from "../services/blogs"
-import Togglable from "./Togglable"
 import { removeBlog, setBlogs } from "../reducers/blogReducer"
 
 const Blog = ({ blog }) => {
@@ -34,26 +33,16 @@ const Blog = ({ blog }) => {
       }
     }
   }
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: "solid",
-    borderWidth: 1,
-    marginBottom: 5,
-  }
 
   return (
-    <div style={blogStyle}>
-      {blog.title} {blog.author}
-      <Togglable buttonLabel="View">
-        <p>{blog.url}</p>
-        <p>
-          Likes {blog.likes}
-          <button onClick={handleLike}>like</button>
-        </p>
-        <p>{blog.user.name}</p>
-        <button onClick={handleDelete}>Delete</button>
-      </Togglable>
+    <div className="flex items-center gap-x-6 lg:gap-x-16">
+      <div>
+        🔥 
+        {blog.author}
+      </div>
+      <div className="">
+        {blog.title}
+      </div>
     </div>
   )
 }
