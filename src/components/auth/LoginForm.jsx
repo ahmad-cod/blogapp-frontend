@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { setNotification } from "../../reducers/notificationReducer";
 import { setUser } from "../../reducers/userReducer";
 import { Link, useNavigate } from "react-router-dom";
-import illustrationMockup from "../../assets/illustration-working.svg";
 
 const LoginForm = () => {
   const dispatch = useDispatch();

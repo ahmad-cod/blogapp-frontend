@@ -1,47 +1,23 @@
 import PropTypes from 'prop-types'
-import { useDispatch } from "react-redux"
-import blogService from "../services/blogs"
-import { removeBlog, setBlogs } from "../reducers/blogReducer"
+import { Link } from "react-router-dom"
+import Mo from '../assets/images/mo.jpeg'
+import shortly from '../assets/images/shortly.png.jpg'
+import quit from '../assets/images/quitting-the-wrong.jpg'
+const imgArray = [Mo, shortly, quit]
 
 const Blog = ({ blog }) => {
-  const dispatch = useDispatch()
-
-  const handleLike = async () => {
-    const blogToUpdate = { ...blog, likes: blog.likes + 1 }
-
-    try {
-      const updatedBlog = await blogService.update(blog.id, blogToUpdate)
-
-      dispatch(
-        setBlogs((prev) =>
-          prev.map((prev) => (prev.id === blog.id ? updatedBlog : prev))
-        )
-      )
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  const handleDelete = async () => {
-    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
-      console.log("delete", blog.id)
-
-      try {
-        await blogService.remove(blog.id)
-        dispatch(removeBlog(blog.id))
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  }
-
+  const randomImg = imgArray[Math.floor(Math.random() * imgArray.length)]
   return (
-    <div className="flex items-center gap-x-6 lg:gap-x-16">
-      <div>
+    <div className="max-w-sm border dark:border-gray-700 rounded-lg">
+      <div className="">
+        <img className='rounded-lg' src={randomImg} alt="" />
+      </div>
+      <div className='mt-4 px-4'>
+      <Link to={`/blogs/${blog.id}`}>
+        <h4 className='text-2xl'>{blog.title}</h4>
         🔥 
         {blog.author}
-      </div>
-      <div className="">
-        {blog.title}
+      </Link>
       </div>
     </div>
   )

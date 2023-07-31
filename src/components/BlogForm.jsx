@@ -17,7 +17,6 @@ const BlogForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     const newBlog = { title, author, url }
-    console.log(newBlog)
 
     try {
       const blog = await blogService.create(newBlog)
